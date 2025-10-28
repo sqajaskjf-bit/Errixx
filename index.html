@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Evrrixx — profile</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1: #07040a;
+    --bg2: #0e0b12;
+    --accent: #7afcff;
+    --neon1: #7afcff;
+    --neon2: #c77bff;
+    --card-bg: rgba(255,255,255,0.03);
+    --glass-border: rgba(255,255,255,0.06);
+    --muted: rgba(255,255,255,0.55);
+    --glass-blur: 10px;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.12), transparent 8%),
+      radial-gradient(900px 500px at 90% 90%, rgba(58,199,230,0.06), transparent 8%),
+      linear-gradient(180deg,var(--bg1),var(--bg2));
+    color:#fff;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+
+  /* floating particles */
+  .particles{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+  }
+  .particle{
+    position:absolute;
+    width:6px;
+    height:6px;
+    background:rgba(255,255,255,0.06);
+    border-radius:50%;
+    filter: blur(.6px);
+    animation: drift linear infinite;
+    mix-blend-mode:screen;
+  }
+  @keyframes drift{
+    from{transform: translateY(-10vh) translateX(0) scale(.6); opacity:.2}
+    50%{opacity:.8}
+    to{transform: translateY(110vh) translateX(30px) scale(1); opacity:0}
+  }
+
+  /* container */
+  .wrap{
+    position:relative;
+    width:980px;
+    max-width:95%;
+    z-index:2;
+    padding:48px;
+    display:flex;
+    gap:28px;
+    align-items:flex-start;
+  }
+
+  .card{
+    position:relative;
+    flex:1;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:20px;
+    padding:28px;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.6), 0 0 40px rgba(122, 180, 255, 0.02) inset;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    overflow:visible;
+  }
+
+  .left{
+    width:260px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .avatar-wrap{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+    border-radius:16px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  }
+  .avatar{
+    width:120px;
+    height:120px;
+    border-radius:999px;
+    object-fit:cover;
+    border:5px solid rgba(255,255,255,0.04);
+    box-shadow: 0 6px 30px rgba(122, 180, 255, 0.08);
+    background:linear-gradient(135deg,var(--neon1),var(--neon2));
+    padding:4px;
+  }
+  .nick{
+    font-weight:800;
+    font-size:28px;
+    letter-spacing:0.6px;
+    color: #fff;
+    text-shadow: 0 3px 18px rgba(122, 250, 255, 0.08), 0 0 18px rgba(199,123,255,0.06);
+  }
+  .meta{
+    color:var(--muted);
+    font-weight:500;
+    font-size:13px;
+  }
+
+  .neon-buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 14px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:14px;
+    color:#fff;
+    background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.04);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.5);
+    transition:transform .18s ease, box-shadow .18s ease;
+    position:relative;
+    overflow:visible;
+  }
+  .btn:before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    z-index:-1;
+    border-radius:12px;
+    background: linear-gradient(90deg, rgba(122,252,255,0.06), rgba(199,123,255,0.06));
+    filter: blur(10px);
+    opacity:0;
+    transition:opacity .18s ease;
+  }
+  .btn:hover{ transform:translateY(-4px); }
+  .btn:hover:before{ opacity:1; }
+
+  /* main right column */
+  .main{
+    flex:1.3;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+
+  .title-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+
+  .title-left{
+    display:flex;
+    gap:16px;
+    align-items:center;
+  }
+  .title-sub{
+    color:var(--muted);
+    font-weight:600;
+    font-size:13px;
+  }
+
+  .bio{
+    color:#eaeaea;
+    font-weight:500;
+    font-size:15px;
+  }
+
+  .links-row{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+
+  /* player */
+  .player{
+    margin-top:6px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008));
+    padding:14px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.03);
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .cover{
+    width:64px;
+    height:64px;
+    border-radius:10px;
+    background:linear-gradient(135deg,var(--neon1),var(--neon2));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    color:#0a0a0a;
+    letter-spacing:0.6px;
+  }
+
+  .controls{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .controls .meta-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .progress{
+    height:6px;
+    background:rgba(255,255,255,0.04);
+    border-radius:8px;
+    overflow:hidden;
+    position:relative;
+  }
+  .progress > .bar{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,var(--neon1),var(--neon2));
+    transition: width .12s linear;
+  }
+  .time{
+    font-size:12px;
+    color:var(--muted);
+    min-width:72px;
+    text-align:right;
+  }
+
+  .playbtn{
+    width:44px;
+    height:44px;
+    border-radius:10px;
+    display:inline-grid;
+    place-items:center;
+    border:1px solid rgba(255,255,255,0.05);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: 0 8px 30px rgba(122, 250, 255, 0.03);
+    cursor:pointer;
+    transition:transform .12s ease;
+  }
+  .playbtn:hover{ transform: translateY(-3px); }
+
+  /* views display */
+  .views{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--muted);
+    font-weight:700;
+    font-size:14px;
+  }
+  .eye{
+    width:18px;height:18px;opacity:.9;
+  }
+
+  /* small screens */
+  @media (max-width:880px){
+    .wrap{flex-direction:column; padding:24px}
+    .left{width:100%; flex-direction:row; align-items:center; justify-content:space-between}
+    .main{width:100%}
+  }
+
+</style>
+</head>
+<body>
+  <div class="particles" aria-hidden="true"></div>
+
+  <div class="wrap" role="main" aria-label="Evrrixx profile card">
+    <div class="left" style="z-index:2">
+      <div class="avatar-wrap">
+        <!-- Замените src на URL вашей аватарки -->
+        <img class="avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="avatar">
+      </div>
+
+      <div style="display:flex;flex-direction:column; gap:6px; align-items:flex-start;">
+        <div class="nick" id="nick">Evrrixx</div>
+        <div class="title-sub meta">Owner / OSU player — <span id="geo">Lviv</span></div>
+        <div style="height:6px"></div>
+        <div class="neon-buttons">
+          <a class="btn" href="https://discord.com/evrrixx" target="_blank" rel="noopener noreferrer" title="Discord">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M7.5 8a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm9 0a1.5 1.5 0 110 3 1.5 1.5 0 010-3z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Discord
+          </a>
+          <a class="btn" href="https://t.me/Evrrixx" target="_blank" rel="noopener noreferrer" title="Telegram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M2 12l19-7-6 18-3.5-8.5L2 12z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Telegram
+          </a>
+          <a class="btn" href="https://www.tiktok.com/@svalipchik" target="_blank" rel="noopener noreferrer" title="TikTok">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 3v8c0 2.5 2 4.5 4.5 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            TikTok
+          </a>
+          <a class="btn" href="https://osu.ppy.sh/users/38462434" target="_blank" rel="noopener noreferrer" title="Osu profile">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.2"/></svg>
+            Osu
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card main" role="region" aria-label="Profile card">
+      <div class="title-row">
+        <div class="title-left">
+          <div>
+            <div class="nick" style="font-size:34px">Evrrixx</div>
+            <div class="title-sub" style="margin-top:6px">OSU player</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="views" aria-live="polite"><svg class="eye" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8S2 12 2 12z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.2"/></svg><span id="views">0</span></div>
+        </div>
+      </div>
+
+      <div class="bio" style="margin-top:6px">
+        <strong>Гео:</strong> Lviv
+      </div>
+
+      <div class="links-row" style="margin-top:10px">
+        <a class="btn" href="https://discord.com/evrrixx" target="_blank" rel="noopener noreferrer">Discord</a>
+        <a class="btn" href="https://t.me/Evrrixx" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a class="btn" href="https://www.tiktok.com/@svalipchik" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a class="btn" href="https://osu.ppy.sh/users/38462434" target="_blank" rel="noopener noreferrer">Osu</a>
+      </div>
+
+      <!-- player -->
+      <div class="player" style="margin-top:16px" aria-label="Audio player">
+        <div class="cover" aria-hidden>BC</div>
+        <div class="controls">
+          <div class="meta-row">
+            <div>
+              <div style="font-weight:700">baby cute — универ</div>
+              <div class="title-sub" style="margin-top:4px">track</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center;">
+              <button class="playbtn" id="play" aria-label="Play/pause">
+                <svg id="playIcon" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 3v18l15-9L5 3z" fill="currentColor"/></svg>
+                <svg id="pauseIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" style="display:none"><rect x="6" y="4" width="4" height="16" fill="currentColor"/><rect x="14" y="4" width="4" height="16" fill="currentColor"/></svg>
+              </button>
+              <div style="width:120px;text-align:right;color:var(--muted);font-weight:600;" id="status">00:00 / 00:00</div>
+            </div>
+          </div>
+
+          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0" id="progressWrap">
+            <div class="bar" id="progressBar"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- small footer -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;">
+        <div style="color:var(--muted); font-weight:600; font-size:13px">Адаптировано: дизайн guns.lol — неоновая карточка</div>
+        <div style="color:var(--muted); font-size:13px">last updated • now</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* -----------------------------
+   Particles generation
+   ----------------------------- */
+(function makeParticles(){
+  const container = document.querySelector('.particles');
+  const count = 40;
+  for(let i=0;i<count;i++){
+    const el = document.createElement('div');
+    el.className = 'particle';
+    const left = Math.random()*100;
+    const size = 2 + Math.random()*10;
+    el.style.left = left + '%';
+    el.style.top = (-10 - Math.random()*20) + 'vh';
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+    el.style.opacity = (0.05 + Math.random()*0.7).toString();
+    el.style.animationDuration = (18 + Math.random()*28) + 's';
+    el.style.animationDelay = (Math.random()*-30) + 's';
+    container.appendChild(el);
+  }
+})();
+
+/* -----------------------------
+   Views counter (localStorage)
+   ----------------------------- */
+(function viewsCounter(){
+  try{
+    const key = 'views_evrrixx_v1';
+    let v = parseInt(localStorage.getItem(key) || '0', 10);
+    v = v + 1;
+    localStorage.setItem(key, String(v));
+    const el = document.getElementById('views');
+    if(el) el.textContent = v.toLocaleString();
+  }catch(e){
+    console.warn('views counter error', e);
+  }
+})();
+
+/* -----------------------------
+   Audio player
+   ----------------------------- */
+(function player(){
+  const audio = new Audio();
+  // === ВАЖНО: добавь сюда прямую ссылку на mp3 ===
+  // Пример: audio.src = 'https://example.com/path/to/baby_cute_univer.mp3';
+  // Если не укажешь — плеер будет показывать 00:00 и кнопка будет отключена.
+  audio.src = ''; // /* Добавь сюда ссылку на mp3 */
+
+  audio.preload = 'metadata';
+  const playBtn = document.getElementById('play');
+  const playIcon = document.getElementById('playIcon');
+  const pauseIcon = document.getElementById('pauseIcon');
+  const progressBar = document.getElementById('progressBar');
+  const progressWrap = document.getElementById('progressWrap');
+  const status = document.getElementById('status');
+
+  let isPlaying = false;
+  let duration = 0;
+
+  function formatTime(t){
+    if(!isFinite(t)) return '00:00';
+    const m = Math.floor(t/60).toString().padStart(2,'0');
+    const s = Math.floor(t%60).toString().padStart(2,'0');
+    return `${m}:${s}`;
+  }
+
+  // attach events
+  audio.addEventListener('loadedmetadata', ()=>{
+    duration = audio.duration || 0;
+    status.textContent = `${formatTime(0)} / ${formatTime(duration)}`;
+    progressWrap.setAttribute('aria-valuemax', Math.floor(duration));
+  });
+
+  audio.addEventListener('timeupdate', ()=>{
+    const t = audio.currentTime;
+    const pct = duration ? Math.max(0, Math.min(100, (t/duration*100))) : 0;
+    progressBar.style.width = pct + '%';
+    status.textContent = `${formatTime(t)} / ${formatTime(duration)}`;
+    progressWrap.setAttribute('aria-valuenow', Math.floor(t));
+  });
+
+  audio.addEventListener('ended', ()=>{
+    isPlaying = false;
+    playIcon.style.display = '';
+    pauseIcon.style.display = 'none';
+  });
+
+  playBtn.addEventListener('click', ()=>{
+    if(!audio.src){
+      // brief feedback
+      playBtn.animate([{transform:'scale(1)'},{transform:'scale(0.98)'},{transform:'scale(1)'}], {duration:220});
+      alert('Аудио не задано. Добавь mp3 в код (audio.src).');
+      return;
+    }
+    if(isPlaying){
+      audio.pause();
+      isPlaying = false;
+      playIcon.style.display = '';
+      pauseIcon.style.display = 'none';
+    } else {
+      audio.play().catch(err=>{
+        console.warn('play error', err);
+        alert('Ошибка воспроизведения: возможно блокировка автозапуска в браузере.');
+      });
+      isPlaying = true;
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = '';
+    }
+  });
+
+  // click on progress to seek
+  progressWrap.addEventListener('click', (e)=>{
+    if(!duration) return;
+    const rect = progressWrap.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const pct = Math.max(0, Math.min(1, x / rect.width));
+    audio.currentTime = pct * duration;
+  });
+
+  // keyboard accessibility: space toggles play
+  document.addEventListener('keydown', (e)=>{
+    if(e.code === 'Space' && document.activeElement !== (document.body || document.documentElement)){
+      // avoid toggling when typing in input; keep default
+      return;
+    }
+    if(e.code === 'Space'){
+      e.preventDefault();
+      playBtn.click();
+    }
+  });
+})();
+
+/* -----------------------------
+   Accessibility: focus outlines
+   ----------------------------- */
+(function(){
+  function handleFirstTab(e){
+    if(e.key === 'Tab'){
+      document.body.classList.add('show-focus-outlines');
+      window.removeEventListener('keydown', handleFirstTab);
+    }
+  }
+  window.addEventListener('keydown', handleFirstTab);
+})();
+
+</script>
+</body>
+</html>
